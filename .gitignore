@@ -1,0 +1,77 @@
+EFDF
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ========================
+# Virtual Environments
+# ========================
+venv/
+.env/
+.env.*
+
+# ========================
+# Django
+# ========================
+*.log
+db.sqlite3
+staticfiles/
+media/
+
+# Django migrations cache
+*/migrations/__pycache__/
+
+# ========================
+# VS Code
+# ========================
+.vscode/
+*.code-workspace
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Media / Large files
+# ========================
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# ========================
+# Node / Frontend (just in case)
+# ========================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ========================
+# Build / Dist
+# ========================
+build/
+dist/
+
+# ========================
+# Temporary / Backup files
+# ========================
+*.tmp
+*.swp
+*.bak
+*~
+
+# ========================
+# JSON data (optional)
+# ========================
+students.json
+*.mp4

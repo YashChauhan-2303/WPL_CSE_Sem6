@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Promotion Eligibility</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e3c72;
+      margin-bottom: 30px;
+      font-size: 1.6rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    select, input[type="date"], input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      background: white;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: #2a5298;
+      box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(30, 60, 114, 0.4);
+    }
+
+    .result-box {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: none;
+    }
+
+    .result-box.yes {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      display: block;
+    }
+
+    .result-box.no {
+      background: linear-gradient(135deg, #cb2d3e 0%, #ef473a 100%);
+      color: white;
+      display: block;
+    }
+
+    .result-box .years {
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .info {
+      text-align: center;
+      color: #666;
+      font-size: 0.85rem;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👨‍💼 Employee Promotion Eligibility</h1>
+
+    <form id="eligibilityForm">
+      <div class="form-group">
+        <label for="employeeId">Select Employee ID</label>
+        <select id="employeeId" name="employee_id" required>
+          <option value="">-- Select Employee --</option>
+          {% for emp in employees %}
+          <option value="{{ emp.employee_id }}" data-doj="{{ emp.date_of_joining|date:'Y-m-d' }}">
+            {{ emp.employee_id }} - {{ emp.name }}
+          </option>
+          {% empty %}
+          <option value="EMP001">EMP001</option>
+          <option value="EMP002">EMP002</option>
+          <option value="EMP003">EMP003</option>
+          <option value="EMP004">EMP004</option>
+          <option value="EMP005">EMP005</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfJoining">Date of Joining</label>
+        <input type="date" id="dateOfJoining" name="date_of_joining" required>
+      </div>
+
+      <button type="submit">Am I Eligible for Promotion?</button>
+    </form>
+
+    <div id="resultLabel" class="result-box"></div>
+
+    <p class="info">Employees with more than 5 years of experience are eligible for promotion.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('eligibilityForm');
+    const employeeSelect = document.getElementById('employeeId');
+    const dateInput = document.getElementById('dateOfJoining');
+    const resultLabel = document.getElementById('resultLabel');
+
+    // Auto-fill date when employee is selected (if data exists)
+    employeeSelect.addEventListener('change', () => {
+      const selected = employeeSelect.options[employeeSelect.selectedIndex];
+      const doj = selected.getAttribute('data-doj');
+      if (doj) {
+        dateInput.value = doj;
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const doj = dateInput.value;
+      if (!doj) {
+        alert('Please enter Date of Joining');
+        return;
+      }
+
+      // Calculate years of experience
+      const joinDate = new Date(doj);
+      const today = new Date();
+      const years = (today - joinDate) / (365.25 * 24 * 60 * 60 * 1000);
+
+      // Display result
+      if (years > 5) {
+        resultLabel.className = 'result-box yes';
+        resultLabel.innerHTML = 'YES ✓<div class="years">Experience: ' + years.toFixed(1) + ' years</div>';
+      } else {
+        resultLabel.className = 'result-box no';
+        resultLabel.innerHTML = 'NO ✗<div class="years">Experience: ' + years.toFixed(1) + ' years (Need more than 5 years)</div>';
+      }
+
+      // Also send to backend
+      try {
+        await fetch('check/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            employee_id: employeeSelect.value,
+            date_of_joining: doj
+          })
+        });
+      } catch (err) {
+        console.error('Backend check failed:', err);
+      }
+    });
+  </script>
+</body>
+</html>

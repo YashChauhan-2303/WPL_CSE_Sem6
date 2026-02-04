@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table and Image Move</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        #container {
+            position: relative;
+            left: 500px;
+            display: inline-block;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        table, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #d9ead3;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fce5cd;
+        }
+    </style>
+</head>
+<body>
+
+<h3>3 * 3 Table with Image</h3>
+
+<div id="container">
+    <table>
+        <tr><td>A</td><td>B</td><td>C</td></tr>
+        <tr><td>D</td><td>E</td><td>F</td></tr>
+        <tr><td>G</td><td>H</td><td>I</td></tr>
+    </table>
+
+    <img src="car.jpeg" alt="Car Image">
+</div>
+
+<br><br>
+
+<button id="leftBtn">Move Right to Left</button>
+<button id="rightBtn">Move Left to Right</button>
+
+<script>
+    $(document).ready(function () {
+
+        $("#leftBtn").click(function () {
+            $("#container").animate({ left: "0px" }, 1000);
+        });
+
+        $("#rightBtn").click(function () {
+            $("#container").animate({ left: "500px" }, 1000);
+        });
+
+    });
+</script>
+
+</body>
+</html>

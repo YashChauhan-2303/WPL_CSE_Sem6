@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Population Table using JavaScript</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 20px auto;
+            text-align: center;
+            font-family: Arial;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: red;
+            color: white;
+        }
+        .country {
+            background-color: #ffe599;   
+            font-weight: bold;
+        }
+        .year {
+            background-color: #9fc5e8;   
+        }
+        .population {
+            background-color: #b6d7a8;   
+        }
+    </style>
+</head>
+<body>
+
+<table id="populationTable">
+    <tr>
+        <th>Country</th>
+        <th colspan="2">Population (in Crores)</th>
+    </tr>
+</table>
+
+<script>
+    const data = {
+        INDIA: [
+            { year: 1998, population: 85 },
+            { year: 1999, population: 90 },
+            { year: 2000, population: 100 }
+        ],
+        USA: [
+            { year: 1998, population: 30 },
+            { year: 1999, population: 35 },
+            { year: 2000, population: 40 }
+        ],
+        UK: [
+            { year: 1998, population: 25 },
+            { year: 1999, population: 30 },
+            { year: 2000, population: 35 }
+        ]
+    };
+
+    const table = document.getElementById("populationTable");
+
+    for (const country in data) {
+        data[country].forEach((item, index) => {
+            const row = document.createElement("tr");
+
+            if (index === 0) {
+                const countryCell = document.createElement("td");
+                countryCell.textContent = country;
+                countryCell.rowSpan = data[country].length;
+                countryCell.className = "country";
+                row.appendChild(countryCell);
+            }
+
+            const yearCell = document.createElement("td");
+            yearCell.textContent = item.year;
+            yearCell.className = "year";
+
+            const populationCell = document.createElement("td");
+            populationCell.textContent = item.population;
+            populationCell.className = "population";
+
+            row.appendChild(yearCell);
+            row.appendChild(populationCell);
+            table.appendChild(row);
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Card</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            display: flex;
+        }
+
+        .controls {
+            width: 40%;
+            padding: 20px;
+            background-color: #fff2cc;
+        }
+
+        .card {
+            width: 60%;
+            height: 450px;
+            margin: 20px;
+            background-color: yellow;
+            text-align: center;
+            padding: 20px;
+            border: 5px solid black;
+        }
+
+        .image-box {
+            background-color: white;
+            display: inline-block;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .image-box img {
+            width: 220px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="controls">
+    <h3>Customize Card</h3>
+
+    Background Color:
+    <select id="bgColor">
+        <option value="yellow">Yellow</option>
+        <option value="pink">Pink</option>
+        <option value="lightblue">Light Blue</option>
+        <option value="lightgreen">Light Green</option>
+    </select><br><br>
+
+    Font:
+    <select id="font">
+        <option value="Verdana">Verdana</option>
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+    </select><br><br>
+
+    Font Size:
+    <input type="number" id="size" value="25"><br><br>
+
+    Text Color:
+    <input type="color" id="textColor" value="#000000"><br><br>
+
+    Text Alignment:
+    <select id="align">
+        <option value="center">Center</option>
+        <option value="left">Left</option>
+        <option value="right">Right</option>
+    </select><br><br>
+
+    Border Style:
+    <input type="radio" name="border" value="solid" checked> Solid
+    <input type="radio" name="border" value="double"> Double
+    <br><br>
+
+    Border Color:
+    <input type="color" id="borderColor" value="#000000"><br><br>
+
+    Image Size:
+    <input type="range" id="imgSize" min="150" max="300" value="220"><br><br>
+
+    Show Image:
+    <input type="checkbox" id="showImg" checked>
+    <br><br>
+
+    Greeting Text:<br>
+    <textarea id="text" rows="3">Happy Birthday, and many more</textarea>
+    <br><br>
+
+    <button id="updateBtn">Update</button>
+</div>
+
+<div class="card" id="card">
+    <h2 id="msg">Happy Birthday, and many more</h2>
+
+    <div class="image-box" id="imgBox">
+        <img src="cake.avif" id="cakeImg" alt="Cake Image">
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#updateBtn").click(function () {
+
+            $("#card").css({
+                "background-color": $("#bgColor").val(),
+                "border-style": $("input[name='border']:checked").val(),
+                "border-color": $("#borderColor").val()
+            });
+
+            $("#msg").css({
+                "font-family": $("#font").val(),
+                "font-size": $("#size").val() + "px",
+                "color": $("#textColor").val(),
+                "text-align": $("#align").val()
+            }).text($("#text").val());
+
+            $("#cakeImg").css("width", $("#imgSize").val() + "px");
+
+            if ($("#showImg").is(":checked")) {
+                $("#imgBox").show();
+            } else {
+                $("#imgBox").hide();
+            }
+
+        });
+
+    });
+</script>
+
+</body>
+</html>

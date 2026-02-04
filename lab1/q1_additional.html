@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Population Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 20px auto;
+            text-align: center;
+            font-family: Arial;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: red;
+            color: white;
+        }
+        .country {
+            background-color: #ffe599;
+            font-weight: bold;
+        }
+        .year {
+            background-color: #9fc5e8;
+        }
+        .population {
+            background-color: #b6d7a8;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Country</th>
+        <th colspan="2">Population (in Crores)</th>
+    </tr>
+
+    <tr>
+        <td rowspan="3" class="country">INDIA</td>
+        <td class="year">1998</td>
+        <td class="population">85</td>
+    </tr>
+    <tr>
+        <td class="year">1999</td>
+        <td class="population">90</td>
+    </tr>
+    <tr>
+        <td class="year">2000</td>
+        <td class="population">100</td>
+    </tr>
+
+    <tr>
+        <td rowspan="3" class="country">USA</td>
+        <td class="year">1998</td>
+        <td class="population">30</td>
+    </tr>
+    <tr>
+        <td class="year">1999</td>
+        <td class="population">35</td>
+    </tr>
+    <tr>
+        <td class="year">2000</td>
+        <td class="population">40</td>
+    </tr>
+
+    <tr>
+        <td rowspan="3" class="country">UK</td>
+        <td class="year">1998</td>
+        <td class="population">25</td>
+    </tr>
+    <tr>
+        <td class="year">1999</td>
+        <td class="population">30</td>
+    </tr>
+    <tr>
+        <td class="year">2000</td>
+        <td class="population">35</td>
+    </tr>
+</table>
+
+</body>
+</html>

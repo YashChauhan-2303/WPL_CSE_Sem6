@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captcha Verification</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #302b63;
+      margin-bottom: 30px;
+      font-size: 1.6rem;
+    }
+
+    .captcha-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .captcha-display {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 15px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .captcha-text {
+      font-family: 'Courier New', monospace;
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 8px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      user-select: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Noise lines */
+    .captcha-display::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.1) 2px,
+        rgba(255,255,255,0.1) 4px
+      );
+      pointer-events: none;
+    }
+
+    .refresh-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .refresh-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: rotate(180deg);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-align: center;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #764ba2;
+      box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+    }
+
+    input[type="text"]:disabled {
+      background: #f5f5f5;
+      color: #999;
+      cursor: not-allowed;
+      border-color: #ddd;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button[type="submit"]:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    button[type="submit"]:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .message-box {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+
+    .message-box.success {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+      display: block;
+    }
+
+    .message-box.error {
+      background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+      color: white;
+      display: block;
+    }
+
+    .message-box.warning {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      display: block;
+    }
+
+    .attempts-info {
+      text-align: center;
+      margin-top: 15px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .attempts-count {
+      font-weight: 700;
+      color: #764ba2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Captcha Verification</h1>
+
+    <div class="captcha-box">
+      <button type="button" class="refresh-btn" id="refreshBtn" title="Get new captcha">🔄</button>
+      <div class="captcha-display">
+        <span class="captcha-text" id="captchaText">{{ captcha }}</span>
+      </div>
+    </div>
+
+    <form id="captchaForm">
+      <div class="form-group">
+        <label for="captchaInput">Enter the Captcha above</label>
+        <input type="text" id="captchaInput" name="captcha_input" 
+               placeholder="Type captcha here" maxlength="6" autocomplete="off" required>
+      </div>
+
+      <button type="submit" id="submitBtn">Verify Captcha</button>
+    </form>
+
+    <div id="messageBox" class="message-box"></div>
+
+    <p class="attempts-info">
+      Failed attempts: <span class="attempts-count" id="attemptsCount">0</span> / 3
+    </p>
+  </div>
+
+  <script>
+    const form = document.getElementById('captchaForm');
+    const captchaInput = document.getElementById('captchaInput');
+    const captchaText = document.getElementById('captchaText');
+    const messageBox = document.getElementById('messageBox');
+    const attemptsCount = document.getElementById('attemptsCount');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    let attempts = 0;
+
+    // Verify captcha
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const userInput = captchaInput.value.trim().toUpperCase();
+      if (!userInput) {
+        showMessage('Please enter the captcha', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('verify/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ captcha_input: userInput })
+        });
+
+        const data = await response.json();
+        
+        attempts = data.attempts;
+        attemptsCount.textContent = attempts;
+
+        if (data.success) {
+          showMessage(data.message, 'success');
+          captchaText.textContent = data.new_captcha;
+          captchaInput.value = '';
+        } else {
+          showMessage(data.message, data.disabled ? 'warning' : 'error');
+          
+          if (data.disabled) {
+            captchaInput.disabled = true;
+            submitBtn.disabled = true;
+          }
+        }
+      } catch (err) {
+        // Fallback: client-side verification
+        const currentCaptcha = captchaText.textContent;
+        
+        if (userInput === currentCaptcha) {
+          showMessage('Captcha matched successfully! ✓', 'success');
+          refreshCaptcha();
+          attempts = 0;
+          attemptsCount.textContent = 0;
+          captchaInput.value = '';
+        } else {
+          attempts++;
+          attemptsCount.textContent = attempts;
+          
+          if (attempts >= 3) {
+            showMessage('Too many failed attempts (3). TextBox is now disabled.', 'warning');
+            captchaInput.disabled = true;
+            submitBtn.disabled = true;
+          } else {
+            showMessage(`Captcha mismatch! Attempts remaining: ${3 - attempts}`, 'error');
+          }
+        }
+      }
+    });
+
+    // Refresh captcha
+    refreshBtn.addEventListener('click', async () => {
+      try {
+        const response = await fetch('refresh/', { method: 'POST' });
+        const data = await response.json();
+        captchaText.textContent = data.captcha;
+      } catch (err) {
+        refreshCaptcha();
+      }
+      captchaInput.value = '';
+      messageBox.style.display = 'none';
+    });
+
+    function refreshCaptcha() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 6; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      captchaText.textContent = result;
+    }
+
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = 'message-box ' + type;
+    }
+  </script>
+</body>
+</html>

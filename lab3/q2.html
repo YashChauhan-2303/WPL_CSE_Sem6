@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee CRUD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    h3 {
+      font-weight: bold;
+      color: #343a40;
+    }
+
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+      font-weight: bold;
+      font-size: 18px;
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .form-control {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+    }
+
+    .btn-group button {
+      min-width: 100px;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    .btn-success { background-color: #198754; border: none; }
+    .btn-success:hover { background-color: #157347; }
+
+    .btn-primary { background-color: #0d6efd; border: none; }
+    .btn-primary:hover { background-color: #0b5ed7; }
+
+    .btn-warning { background-color: #ffc107; border: none; color: #212529; }
+    .btn-warning:hover { background-color: #e0a800; }
+
+    .btn-danger { background-color: #dc3545; border: none; }
+    .btn-danger:hover { background-color: #b02a37; }
+
+    table {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    table th, table td {
+      padding: 12px 15px;
+    }
+
+    tr.selected {
+      background-color: #cce5ff !important;
+    }
+
+    table tbody tr:hover {
+      background-color: #e9ecef;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Employee CRUD Operations</h3>
+
+  <div class="card mb-4">
+    <div class="card-header">Employee Details</div>
+    <div class="card-body">
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Employee ID">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Employee Name">
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Department">
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-success">Create</button>
+        <button class="btn btn-primary">Read</button>
+        <button class="btn btn-warning">Update</button>
+        <button class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>101</td>
+        <td>Ravi</td>
+        <td>HR</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  let selectedRow = null;
+
+  const idInput = document.querySelectorAll("input")[0];
+  const nameInput = document.querySelectorAll("input")[1];
+  const deptInput = document.querySelectorAll("input")[2];
+  const tableBody = document.querySelector("table tbody");
+
+  function makeRowSelectable(row) {
+    row.onclick = function () {
+      if (selectedRow) selectedRow.classList.remove("selected");
+      selectedRow = this;
+      this.classList.add("selected");
+      idInput.value = this.cells[0].innerText;
+      nameInput.value = this.cells[1].innerText;
+      deptInput.value = this.cells[2].innerText;
+    };
+  }
+
+  Array.from(tableBody.rows).forEach(row => makeRowSelectable(row));
+
+  document.querySelector(".btn-success").onclick = function () {
+    if (!idInput.value || !nameInput.value || !deptInput.value) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const row = tableBody.insertRow();
+    row.insertCell(0).innerText = idInput.value;
+    row.insertCell(1).innerText = nameInput.value;
+    row.insertCell(2).innerText = deptInput.value;
+    makeRowSelectable(row);
+    clearInputs();
+  };
+
+  document.querySelector(".btn-primary").onclick = function () {
+    alert("Employee records are displayed in the table below.");
+  };
+
+  document.querySelector(".btn-warning").onclick = function () {
+    if (!selectedRow) {
+      alert("Select a row to update");
+      return;
+    }
+    selectedRow.cells[0].innerText = idInput.value;
+    selectedRow.cells[1].innerText = nameInput.value;
+    selectedRow.cells[2].innerText = deptInput.value;
+    selectedRow.classList.remove("selected");
+    clearInputs();
+    selectedRow = null;
+  };
+
+  document.querySelector(".btn-danger").onclick = function () {
+    if (!selectedRow) {
+      alert("Select a row to delete");
+      return;
+    }
+    tableBody.deleteRow(selectedRow.rowIndex - 1);
+    clearInputs();
+    selectedRow = null;
+  };
+
+  function clearInputs() {
+    idInput.value = "";
+    nameInput.value = "";
+    deptInput.value = "";
+  }
+</script>
+
+</body>
+</html>

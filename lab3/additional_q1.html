@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Train Ticket Booking</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+  <div class="card shadow p-4">
+    <h3 class="text-center mb-4">
+      🚆 Train Ticket Booking
+      <span class="badge bg-success">Fast & Easy</span>
+    </h3>
+
+    <form>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">From</label>
+          <input type="text" class="form-control" placeholder="Source Station">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">To</label>
+          <input type="text" class="form-control" placeholder="Destination Station">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Journey Date</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Class</label>
+          <select class="form-select">
+            <option>Sleeper</option>
+            <option>3AC</option>
+            <option>2AC</option>
+            <option>1AC</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Quota</label>
+          <select class="form-select">
+            <option>General</option>
+            <option>Ladies</option>
+            <option>Senior Citizen</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Gender</label><br>
+        <input type="radio" name="gender"> Male
+        <input type="radio" name="gender" class="ms-3"> Female
+      </div>
+
+      <div class="mb-3">
+        <input type="checkbox"> I agree to the terms & conditions
+      </div>
+
+      <div class="d-grid">
+        <button class="btn btn-primary btn-lg">Book Ticket</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

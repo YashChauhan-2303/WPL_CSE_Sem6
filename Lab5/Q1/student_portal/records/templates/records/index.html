@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Entry Form</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px 40px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .percentage-display {
+      text-align: center;
+      margin: 20px 0 15px;
+      padding: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .results-section h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      resize: vertical;
+      background: #fafafa;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    @media (max-width: 500px) {
+      .row, .row-3 {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📚 Student Entry Form</h1>
+    
+    <form id="studentForm">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter student name" required>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Number</label>
+          <input type="tel" id="contact" name="contact" placeholder="Phone number">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="Enter address">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" placeholder="student@example.com">
+      </div>
+
+      <div class="row-3">
+        <div class="form-group">
+          <label for="maths">Maths (0-100)</label>
+          <input type="number" id="maths" name="maths" min="0" max="100" placeholder="0" required>
+        </div>
+        <div class="form-group">
+          <label for="physics">Physics (0-100)</label>
+          <input type="number" id="physics" name="physics" min="0" max="100" placeholder="0" required>
+        </div>
+        <div class="form-group">
+          <label for="chemistry">Chemistry (0-100)</label>
+          <input type="number" id="chemistry" name="chemistry" min="0" max="100" placeholder="0" required>
+        </div>
+      </div>
+
+      <button type="submit">Submit Details</button>
+    </form>
+
+    <div class="percentage-display" id="percentageLabel">
+      Percentage: --
+    </div>
+
+    <div class="results-section">
+      <h3>📋 Submitted Records</h3>
+      <textarea id="output" readonly placeholder="Submitted student details will appear here..."></textarea>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('studentForm');
+    const output = document.getElementById('output');
+    const percentageLabel = document.getElementById('percentageLabel');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const fd = new FormData(form);
+      const data = Object.fromEntries(fd.entries());
+      
+      const maths = Number(data.maths) || 0;
+      const physics = Number(data.physics) || 0;
+      const chemistry = Number(data.chemistry) || 0;
+      const total = maths + physics + chemistry;
+      const percentage = ((total / 300) * 100).toFixed(2);
+
+      percentageLabel.textContent = 'Percentage: ' + percentage + '%';
+
+      const summary = data.name + ' | DOB: ' + data.dob + ' | Email: ' + data.email + ' | Contact: ' + data.contact + ' | Maths: ' + maths + ' | Physics: ' + physics + ' | Chemistry: ' + chemistry + ' | Total: ' + total + '/300 | Percentage: ' + percentage + '%\n';
+      output.value += summary;
+
+      // Send to backend
+      try {
+        await fetch('submit/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: data.name,
+            dob: data.dob,
+            address: data.address,
+            contact: data.contact,
+            email: data.email,
+            maths: maths,
+            physics: physics,
+            chemistry: chemistry
+          })
+        });
+      } catch (err) {
+        console.error('Failed to save:', err);
+      }
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
