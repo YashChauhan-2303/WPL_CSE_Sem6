@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .form-row {
+            margin-bottom: 15px;
+        }
+        .form-row label {
+            display: inline-block;
+            width: 100px;
+        }
+        .form-row input[type="text"] {
+            width: 200px;
+            padding: 5px;
+        }
+        .checkbox-group, .radio-group {
+            margin-bottom: 10px;
+        }
+        .checkbox-group label, .radio-group label {
+            margin-right: 15px;
+        }
+        textarea {
+            width: 300px;
+            height: 80px;
+            padding: 5px;
+        }
+        .result-label {
+            margin: 15px 0;
+            padding: 10px;
+            min-height: 40px;
+        }
+        .buttons {
+            margin-top: 15px;
+        }
+        .buttons button {
+            padding: 5px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <label>Enter Name:</label>
+                <input type="text" name="name" value="{{ name }}">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" name="bold" id="bold" {% if bold %}checked{% endif %}>
+                <label for="bold">BOLD</label>
+                
+                <input type="checkbox" name="italic" id="italic" {% if italic %}checked{% endif %}>
+                <label for="italic">ITALIC</label>
+                
+                <input type="checkbox" name="underline" id="underline" {% if underline %}checked{% endif %}>
+                <label for="underline">UNDERLINE</label>
+            </div>
+            
+            <div class="radio-group">
+                <input type="radio" name="color" value="red" id="red" {% if color == 'red' %}checked{% endif %}>
+                <label for="red">RED</label>
+                
+                <input type="radio" name="color" value="green" id="green" {% if color == 'green' %}checked{% endif %}>
+                <label for="green">GREEN</label>
+                
+                <input type="radio" name="color" value="pink" id="pink" {% if color == 'pink' %}checked{% endif %}>
+                <label for="pink">PINK</label>
+            </div>
+            
+            <div class="form-row">
+                <label>Enter Message:</label><br>
+                <textarea name="message">{{ message }}</textarea>
+            </div>
+            
+            <div class="result-label">
+                {% if show_result %}
+                <span style="
+                    {% if bold %}font-weight: bold;{% endif %}
+                    {% if italic %}font-style: italic;{% endif %}
+                    {% if underline %}text-decoration: underline;{% endif %}
+                    color: {{ color }};
+                ">
+                    <strong>Name:</strong>{{ name }}<br>
+                    <strong>Message:</strong>{{ message }}
+                </span>
+                {% else %}
+                <span>Label</span>
+                {% endif %}
+            </div>
+            
+            <div class="buttons">
+                <button type="submit" name="action" value="display">Display</button>
+                <button type="submit" name="action" value="clear">Clear</button>
+                <button type="button" onclick="window.close();">Exit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

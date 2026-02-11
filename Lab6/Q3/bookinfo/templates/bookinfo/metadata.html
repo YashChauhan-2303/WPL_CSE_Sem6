@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata - {{ book.title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .subtitle {
+            color: #e94560;
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .metadata-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .metadata-table tr {
+            border-bottom: 1px solid #eee;
+        }
+        .metadata-table tr:last-child {
+            border-bottom: none;
+        }
+        .metadata-table th {
+            text-align: left;
+            padding: 15px 10px;
+            color: #666;
+            font-weight: normal;
+            width: 40%;
+        }
+        .metadata-table td {
+            padding: 15px 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #e94560 0%, #c23a51 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .home-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Metadata</h1>
+        <p class="subtitle">{{ book.title }}</p>
+        
+        <table class="metadata-table">
+            <tr>
+                <th>Title</th>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ book.author }}</td>
+            </tr>
+            <tr>
+                <th>ISBN</th>
+                <td>{{ book.isbn }}</td>
+            </tr>
+            <tr>
+                <th>Language</th>
+                <td>{{ book.language }}</td>
+            </tr>
+            <tr>
+                <th>Pages</th>
+                <td>{{ book.pages }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ book.genre }}</td>
+            </tr>
+            <tr>
+                <th>Published Date</th>
+                <td>{{ book.published_date }}</td>
+            </tr>
+            <tr>
+                <th>Format</th>
+                <td>{{ book.format }}</td>
+            </tr>
+        </table>
+        
+        <a href="/" class="home-link">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - {{ book.title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .subtitle {
+            color: #e94560;
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .review-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #e94560;
+        }
+        .reviewer {
+            font-weight: bold;
+            color: #1a1a2e;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .stars {
+            color: #f0e68c;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .comment {
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #e94560 0%, #c23a51 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .home-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Reviews</h1>
+        <p class="subtitle">{{ book.title }}</p>
+        
+        {% for review in reviews %}
+        <div class="review-card">
+            <p class="reviewer">{{ review.reviewer }}</p>
+            <p class="stars">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
+                {% endfor %}
+            </p>
+            <p class="comment">"{{ review.comment }}"</p>
+        </div>
+        {% endfor %}
+        
+        <a href="/" class="home-link">Back to Home</a>
+    </div>
+</body>
+</html>

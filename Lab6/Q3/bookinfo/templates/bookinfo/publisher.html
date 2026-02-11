@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publisher Info - {{ book.title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .subtitle {
+            color: #e94560;
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .publisher-name {
+            font-size: 1.5rem;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e94560;
+        }
+        .info-grid {
+            display: grid;
+            gap: 15px;
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .info-icon {
+            font-size: 1.5rem;
+            min-width: 30px;
+            text-align: center;
+        }
+        .info-content label {
+            display: block;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        .info-content p {
+            color: #333;
+            font-weight: bold;
+        }
+        .description {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            line-height: 1.7;
+            color: #555;
+        }
+        .description h3 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        .home-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #e94560 0%, #c23a51 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .home-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Publisher Information</h1>
+        <p class="subtitle">{{ book.title }}</p>
+        
+        <h2 class="publisher-name">{{ publisher.name }}</h2>
+        
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-icon">📍</span>
+                <div class="info-content">
+                    <label>Address</label>
+                    <p>{{ publisher.address }}</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <span class="info-icon">📞</span>
+                <div class="info-content">
+                    <label>Phone</label>
+                    <p>{{ publisher.phone }}</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <span class="info-icon">✉️</span>
+                <div class="info-content">
+                    <label>Email</label>
+                    <p>{{ publisher.email }}</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <span class="info-icon">🌐</span>
+                <div class="info-content">
+                    <label>Website</label>
+                    <p>{{ publisher.website }}</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <span class="info-icon">📅</span>
+                <div class="info-content">
+                    <label>Founded</label>
+                    <p>{{ publisher.founded }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description">
+            <h3>About the Publisher</h3>
+            <p>{{ publisher.description }}</p>
+        </div>
+        
+        <a href="/" class="home-link">Back to Home</a>
+    </div>
+</body>
+</html>

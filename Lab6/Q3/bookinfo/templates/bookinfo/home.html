@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }} - Book Information</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .container {
+            text-align: center;
+            max-width: 500px;
+        }
+        h1 {
+            color: #f0e68c;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .author {
+            color: #ccc;
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .book-cover {
+            width: 280px;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+            transition: transform 0.3s;
+        }
+        .book-cover:hover {
+            transform: scale(1.02);
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .nav-links a {
+            display: block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #e94560 0%, #c23a51 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .nav-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ book.title }}</h1>
+        <p class="author">by {{ book.author }}</p>
+        
+        <img src="{{ book.cover_image }}" alt="{{ book.title }} Cover" class="book-cover">
+        
+        <nav class="nav-links">
+            <a href="/metadata/">Metadata</a>
+            <a href="/reviews/">Reviews</a>
+            <a href="/publisher/">Publisher Info</a>
+        </nav>
+    </div>
+</body>
+</html>

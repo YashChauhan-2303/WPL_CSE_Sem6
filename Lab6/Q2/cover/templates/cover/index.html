@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine Cover Generator</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Magazine Cover Generator</h1>
+    
+    <div class="container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Design Your Cover</h2>
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Text Content -->
+                <div class="form-group">
+                    <label for="title">Magazine Title:</label>
+                    <input type="text" id="title" name="title" value="{{ title }}" placeholder="e.g., VOGUE, TIME, LIFE">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subtitle">Subtitle / Tagline:</label>
+                    <input type="text" id="subtitle" name="subtitle" value="{{ subtitle }}" placeholder="e.g., Fashion & Style">
+                </div>
+                
+                <div class="form-group">
+                    <label for="headline1">Headline 1:</label>
+                    <input type="text" id="headline1" name="headline1" value="{{ headline1 }}" placeholder="e.g., Spring Collection 2026">
+                </div>
+                
+                <div class="form-group">
+                    <label for="headline2">Headline 2:</label>
+                    <input type="text" id="headline2" name="headline2" value="{{ headline2 }}" placeholder="e.g., Top 10 Trends">
+                </div>
+                
+                <div class="form-group">
+                    <label for="headline3">Headline 3:</label>
+                    <input type="text" id="headline3" name="headline3" value="{{ headline3 }}" placeholder="e.g., Exclusive Interview">
+                </div>
+                
+                <!-- Image Selection -->
+                <div class="form-group">
+                    <label for="image_choice">Cover Image:</label>
+                    <select id="image_choice" name="image_choice">
+                        <option value="fashion" {% if image_choice == 'fashion' %}selected{% endif %}>Fashion Model</option>
+                        <option value="nature" {% if image_choice == 'nature' %}selected{% endif %}>Nature Landscape</option>
+                        <option value="city" {% if image_choice == 'city' %}selected{% endif %}>City Skyline</option>
+                        <option value="abstract" {% if image_choice == 'abstract' %}selected{% endif %}>Abstract Art</option>
+                        <option value="portrait" {% if image_choice == 'portrait' %}selected{% endif %}>Portrait</option>
+                    </select>
+                </div>
+                
+                <!-- Colors -->
+                <h3 style="margin: 20px 0 15px; color: #333;">Colors</h3>
+                
+                <div class="form-group">
+                    <label>Background Color:</label>
+                    <div class="color-input-group">
+                        <input type="color" id="bg_color" name="bg_color" value="{{ bg_color }}">
+                        <span>{{ bg_color }}</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Title Color:</label>
+                    <div class="color-input-group">
+                        <input type="color" id="title_color" name="title_color" value="{{ title_color }}">
+                        <span>{{ title_color }}</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Subtitle Color:</label>
+                    <div class="color-input-group">
+                        <input type="color" id="subtitle_color" name="subtitle_color" value="{{ subtitle_color }}">
+                        <span>{{ subtitle_color }}</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Headlines Color:</label>
+                    <div class="color-input-group">
+                        <input type="color" id="headline_color" name="headline_color" value="{{ headline_color }}">
+                        <span>{{ headline_color }}</span>
+                    </div>
+                </div>
+                
+                <!-- Font Sizes -->
+                <h3 style="margin: 20px 0 15px; color: #333;">Font Sizes (px)</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title_size">Title:</label>
+                        <input type="number" id="title_size" name="title_size" value="{{ title_size }}" min="20" max="80">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subtitle_size">Subtitle:</label>
+                        <input type="number" id="subtitle_size" name="subtitle_size" value="{{ subtitle_size }}" min="12" max="40">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="headline_size">Headlines:</label>
+                        <input type="number" id="headline_size" name="headline_size" value="{{ headline_size }}" min="10" max="30">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-generate">Generate Cover</button>
+            </form>
+        </div>
+        
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <h2>Preview</h2>
+            
+            {% if show_preview %}
+            <div class="magazine-cover" style="background-color: {{ bg_color }};">
+                <!-- Cover Image based on selection -->
+                {% if image_choice == 'fashion' %}
+                <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=550&fit=crop" alt="Fashion" class="cover-image">
+                {% elif image_choice == 'nature' %}
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=550&fit=crop" alt="Nature" class="cover-image">
+                {% elif image_choice == 'city' %}
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=550&fit=crop" alt="City" class="cover-image">
+                {% elif image_choice == 'abstract' %}
+                <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400&h=550&fit=crop" alt="Abstract" class="cover-image">
+                {% elif image_choice == 'portrait' %}
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=550&fit=crop" alt="Portrait" class="cover-image">
+                {% endif %}
+                
+                <div class="cover-overlay"></div>
+                
+                <div class="cover-content">
+                    {% if title %}
+                    <div class="magazine-title" style="color: {{ title_color }}; font-size: {{ title_size }}px;">
+                        {{ title }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if subtitle %}
+                    <div class="magazine-subtitle" style="color: {{ subtitle_color }}; font-size: {{ subtitle_size }}px;">
+                        {{ subtitle }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="headlines">
+                        {% if headline1 %}
+                        <div class="headline" style="color: {{ headline_color }}; font-size: {{ headline_size }}px; border-color: {{ subtitle_color }};">
+                            {{ headline1 }}
+                        </div>
+                        {% endif %}
+                        
+                        {% if headline2 %}
+                        <div class="headline" style="color: {{ headline_color }}; font-size: {{ headline_size }}px; border-color: {{ subtitle_color }};">
+                            {{ headline2 }}
+                        </div>
+                        {% endif %}
+                        
+                        {% if headline3 %}
+                        <div class="headline" style="color: {{ headline_color }}; font-size: {{ headline_size }}px; border-color: {{ subtitle_color }};">
+                            {{ headline3 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="no-preview">
+                <p>Fill in the form and click "Generate Cover" to see your magazine cover preview</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
