@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Confirmation | AutoSelect Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .page-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .success-banner {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .success-banner h1 {
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .success-banner p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .confirmation-number {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .details-container {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .details-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px 30px;
+            color: #fff;
+        }
+
+        .details-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .details-body {
+            padding: 35px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 1.2rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-card.highlight {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .car-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .comments-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            color: #475569;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .comments-box:empty::before {
+            content: 'No additional comments provided.';
+            color: #94a3b8;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 640px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-banner {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .details-container {
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="success-banner">
+            <span class="success-icon">✅</span>
+            <h1>Inquiry Submitted Successfully!</h1>
+            <p>Thank you for your interest. Our team will contact you shortly.</p>
+            <div class="confirmation-number">Ref: #CAR{{ customer_name|slice:":3"|upper }}{{ year|slice:":2" }}{{ manufacturer|slice:":2"|upper }}</div>
+        </div>
+
+        <div class="details-container">
+            <div class="details-header">
+                <h2>📋 Inquiry Summary</h2>
+            </div>
+
+            <div class="details-body">
+                <!-- Customer Information -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-icon">👤</span>
+                        Customer Information
+                    </div>
+                    <div class="details-grid">
+                        <div class="detail-card highlight">
+                            <div class="detail-label">Full Name</div>
+                            <div class="detail-value">{{ customer_name }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Email Address</div>
+                            <div class="detail-value">{{ email }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Phone Number</div>
+                            <div class="detail-value">{{ phone }}</div>
+                        </div>
+                        <div class="detail-card highlight">
+                            <div class="detail-label">Budget</div>
+                            <div class="detail-value">{{ budget }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vehicle Details -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-icon">🚗</span>
+                        Vehicle Details
+                    </div>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div class="car-badge">
+                            🚙 {{ year }} {{ manufacturer }} {{ model }}
+                        </div>
+                    </div>
+                    <div class="details-grid">
+                        <div class="detail-card">
+                            <div class="detail-label">Manufacturer</div>
+                            <div class="detail-value">{{ manufacturer }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Model</div>
+                            <div class="detail-value">{{ model }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Year</div>
+                            <div class="detail-value">{{ year }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Body Type</div>
+                            <div class="detail-value">{{ body_type }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specifications -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-icon">⚙️</span>
+                        Specifications
+                    </div>
+                    <div class="details-grid">
+                        <div class="detail-card">
+                            <div class="detail-label">Color</div>
+                            <div class="detail-value">{{ color }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Fuel Type</div>
+                            <div class="detail-value">{{ fuel_type }}</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Transmission</div>
+                            <div class="detail-value">{{ transmission }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Comments -->
+                {% if comments %}
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-icon">📝</span>
+                        Additional Comments
+                    </div>
+                    <div class="comments-box">{{ comments }}</div>
+                </div>
+                {% endif %}
+
+                <div class="btn-container">
+                    <a href="{% url 'select_car' %}" class="btn btn-primary">
+                        ← Submit Another Inquiry
+                    </a>
+                    <button onclick="window.print()" class="btn btn-secondary">
+                        🖨️ Print Summary
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note">
+            A confirmation email has been sent to {{ email }}. Our team will reach out within 24-48 hours.
+        </p>
+    </div>
+
+    <script>
+        // Add print styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @media print {
+                body {
+                    background: #fff !important;
+                    padding: 20px !important;
+                }
+                .btn-container {
+                    display: none !important;
+                }
+                .footer-note {
+                    display: none !important;
+                }
+                .success-banner {
+                    box-shadow: none !important;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
+                }
+                .details-container {
+                    box-shadow: none !important;
+                    border: 1px solid #e2e8f0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

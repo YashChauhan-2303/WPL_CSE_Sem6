@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+            border: 1px solid #333;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+        }
+        a:hover {
+            background-color: #1976D2;
+        }
+        .note {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h2>Student Details (Session Data)</h2>
+    
+    <table>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ name }}</td>
+        </tr>
+        <tr>
+            <td>Roll Number</td>
+            <td>{{ roll }}</td>
+        </tr>
+        <tr>
+            <td>Subject</td>
+            <td>{{ subject }}</td>
+        </tr>
+    </table>
+    
+    <a href="{% url 'first_page' %}">Back to First Page</a>
+    
+    <p class="note">* Data transferred using Django Sessions</p>
+</body>
+</html>
