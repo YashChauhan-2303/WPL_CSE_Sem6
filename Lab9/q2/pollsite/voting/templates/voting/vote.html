@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Vote</title>
+    <style>
+        :root {
+            --bg1: #f7fbff;
+            --bg2: #fef6f0;
+            --card: #ffffff;
+            --primary: #1e40af;
+            --primary-hover: #1e3a8a;
+            --text: #111827;
+            --muted: #4b5563;
+            --border: #d1d5db;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at top left, var(--bg1), var(--bg2));
+            padding: 24px;
+        }
+
+        .card {
+            width: min(94vw, 520px);
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+            padding: 24px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.3rem;
+        }
+
+        .question {
+            margin-bottom: 16px;
+            color: var(--muted);
+        }
+
+        .choices {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 14px;
+        }
+
+        .choices p {
+            margin: 0 0 10px;
+            font-weight: 700;
+        }
+
+        .choices label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .choices input {
+            margin-right: 8px;
+        }
+
+        .errorlist {
+            margin: 0 0 10px;
+            color: #b91c1c;
+            padding-left: 18px;
+        }
+
+        button {
+            background: var(--primary);
+            color: #fff;
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Book Feedback</h1>
+        <p class="question">How is the book ASP.NET with c# by Vipul Prakashan?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="choices">
+                {{ form.choice.errors }}
+                {{ form.choice }}
+            </div>
+            <button type="submit">VOTE</button>
+        </form>
+    </main>
+</body>
+</html>

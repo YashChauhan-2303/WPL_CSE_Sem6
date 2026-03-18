@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produce Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .box {
+            width: 360px;
+            border: 1px solid #999;
+            padding: 12px;
+        }
+
+        .group {
+            margin-bottom: 12px;
+        }
+
+        .group-title {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .errorlist {
+            color: #b00020;
+            margin: 4px 0;
+            padding-left: 18px;
+            font-size: 13px;
+        }
+
+        input[type="number"] {
+            width: 120px;
+            padding: 3px;
+        }
+
+        button {
+            padding: 4px 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="group">
+                <div class="group-title">Select Brand</div>
+                {{ form.brand.errors }}
+                {{ form.brand }}
+            </div>
+
+            <div class="group">
+                <div class="group-title">Select Item</div>
+                {{ form.items.errors }}
+                {{ form.items }}
+            </div>
+
+            <div class="group">
+                <div class="group-title">Quantities</div>
+                <div>
+                    Mobile: {{ form.mobile_quantity }}
+                    {{ form.mobile_quantity.errors }}
+                </div>
+                <div style="margin-top: 6px;">
+                    Laptop: {{ form.laptop_quantity }}
+                    {{ form.laptop_quantity.errors }}
+                </div>
+            </div>
+
+            <button type="submit">Produce Bill</button>
+        </form>
+    </div>
+</body>
+</html>

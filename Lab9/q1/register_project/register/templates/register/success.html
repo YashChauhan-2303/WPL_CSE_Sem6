@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #ecfeff, #f0fdf4);
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        .card {
+            background: #ffffff;
+            width: min(92vw, 520px);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            color: #0f172a;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            color: #0f766e;
+        }
+
+        .row {
+            margin: 8px 0;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .label {
+            font-weight: 700;
+            color: #334155;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 14px;
+            text-decoration: none;
+            color: white;
+            background: #0f766e;
+            padding: 10px 14px;
+            border-radius: 8px;
+        }
+
+        a:hover {
+            background: #0d5f59;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Welcome {{ username }}</h1>
+
+        <div class="row"><span class="label">Email:</span> {{ email|default:"Not provided" }}</div>
+        <div class="row"><span class="label">Contact Number:</span> {{ contact|default:"Not provided" }}</div>
+
+        <a href="{% url 'register' %}">Back to Register</a>
+    </main>
+</body>
+</html>

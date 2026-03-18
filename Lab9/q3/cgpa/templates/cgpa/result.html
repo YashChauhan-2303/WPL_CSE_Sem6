@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        .box {
+            width: 320px;
+            border: 1px solid #999;
+            padding: 14px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .name {
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div><span class="name">Name:</span> {{ name }}</div>
+        <div><span class="name">Total Marks:</span> {{ total_marks }}</div>
+        <div><span class="name">CGPA:</span> {{ cgpa }}</div>
+        <a href="{% url 'input' %}">Back</a>
+    </div>
+</body>
+</html>

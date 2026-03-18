@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Result</title>
+    <style>
+        :root {
+            --bg1: #f0f9ff;
+            --bg2: #ecfeff;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+            --row: #f8fafc;
+            --border: #cbd5e1;
+            --btn: #0f766e;
+            --btn-hover: #0d5f59;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+            color: var(--text);
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            padding: 24px;
+        }
+
+        .card {
+            width: min(94vw, 540px);
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+            padding: 24px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.4rem;
+            color: #0f766e;
+        }
+
+        .subtitle {
+            margin: 0 0 16px;
+            color: var(--muted);
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--row);
+        }
+
+        .label {
+            font-weight: 700;
+        }
+
+        .value {
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+        }
+
+        .meta {
+            margin-top: 10px;
+            color: var(--muted);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 14px;
+            background: var(--btn);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        a:hover {
+            background: var(--btn-hover);
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Vote Result</h1>
+        <p class="subtitle">How is the book ASP.NET with c# by Vipul Prakashan?</p>
+
+        <div class="row"><span class="label">Good</span><span class="value">{{ good_percent }}%</span></div>
+        <div class="row"><span class="label">Satisfactory</span><span class="value">{{ satisfactory_percent }}%</span></div>
+        <div class="row"><span class="label">Bad</span><span class="value">{{ bad_percent }}%</span></div>
+
+        <p class="meta">Total votes: {{ total_votes }}</p>
+        <a href="{% url 'vote' %}">Vote Again</a>
+    </main>
+</body>
+</html>
