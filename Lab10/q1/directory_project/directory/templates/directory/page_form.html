@@ -1,0 +1,54 @@
+{% extends 'directory/base.html' %}
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}New{% endif %} Page - Web Directory{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{% if form.instance.pk %}Edit Page{% else %}Add New Page{% endif %}</h1>
+</div>
+
+<div class="form-container">
+    <form method="post" class="form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.category.label_tag }}
+            {{ form.category }}
+            {% if form.category.errors %}
+            <div class="form-error">{{ form.category.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {% if form.title.errors %}
+            <div class="form-error">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.url.label_tag }}
+            {{ form.url }}
+            {% if form.url.errors %}
+            <div class="form-error">{{ form.url.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.views.label_tag }}
+            {{ form.views }}
+            {% if form.views.errors %}
+            <div class="form-error">{{ form.views.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                {% if form.instance.pk %}Update Page{% else %}Add Page{% endif %}
+            </button>
+            <a href="{% url 'page_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

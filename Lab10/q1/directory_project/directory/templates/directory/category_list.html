@@ -1,0 +1,62 @@
+{% extends 'directory/base.html' %}
+
+{% block title %}Categories - Web Directory{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Categories</h1>
+    <a href="{% url 'category_create' %}" class="btn btn-primary">+ New Category</a>
+</div>
+
+{% if categories %}
+<div class="categories-grid">
+    {% for category in categories %}
+    <div class="category-card">
+        <div class="card-top">
+            <h2><a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a></h2>
+            <span class="badge">{{ category.pages.count }} links</span>
+        </div>
+        <div class="card-stats">
+            <div class="stat">
+                <span class="stat-icon">👁️</span>
+                <span class="stat-text">{{ category.visits }} visits</span>
+            </div>
+            <div class="stat">
+                <span class="stat-icon">❤️</span>
+                <span class="stat-text">{{ category.likes }} likes</span>
+            </div>
+        </div>
+        <div class="card-actions">
+            <a href="{% url 'category_detail' category.pk %}" class="btn btn-secondary">View</a>
+            <a href="{% url 'category_update' category.pk %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="page-link">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
+    {% endif %}
+
+    <span class="page-info">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% else %}
+<div class="empty-state">
+    <p>No categories yet.</p>
+    <a href="{% url 'category_create' %}" class="btn btn-primary">Create First Category</a>
+</div>
+{% endif %}
+{% endblock %}

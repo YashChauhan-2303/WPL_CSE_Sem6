@@ -1,0 +1,50 @@
+{% extends 'employees/base.html' %}
+
+{% block title %}All Work Records{% endblock %}
+
+{% block content %}
+<div class="view-page">
+    <div class="page-header">
+        <h1>All Work Records</h1>
+        <p>Complete list of all WORKS table entries</p>
+    </div>
+
+    {% if works_list %}
+    <div class="stats-bar">
+        <span class="record-count">Total Records: <strong>{{ works_list|length }}</strong></span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Person Name</th>
+                    <th>Company Name</th>
+                    <th>Salary</th>
+                    <th>Date Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for work in works_list %}
+                <tr>
+                    <td><strong>{{ work.person_name }}</strong></td>
+                    <td>{{ work.company_name }}</td>
+                    <td class="salary">${{ work.salary|floatformat:2 }}</td>
+                    <td class="date">{{ work.created_at|date:"M d, Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No work records found.</p>
+        <a href="{% url 'insert_works' %}" class="btn btn-primary">Add First Record</a>
+    </div>
+    {% endif %}
+
+    <div class="back-link">
+        <a href="{% url 'index' %}">← Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

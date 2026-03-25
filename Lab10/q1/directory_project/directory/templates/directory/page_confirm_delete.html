@@ -1,0 +1,23 @@
+{% extends 'directory/base.html' %}
+
+{% block title %}Delete Page - Web Directory{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Delete Page</h1>
+</div>
+
+<div class="confirm-container">
+    <div class="confirm-box">
+        <h2>Are you sure?</h2>
+        <p>You are about to delete the page <strong>"{{ object.title }}"</strong>.</p>
+        <p class="warning">This action cannot be undone.</p>
+        
+        <form method="post" class="confirm-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'page_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'employees/base.html' %}
+
+{% block title %}All Location Records{% endblock %}
+
+{% block content %}
+<div class="view-page">
+    <div class="page-header">
+        <h1>All Location Records</h1>
+        <p>Complete list of all LIVES table entries</p>
+    </div>
+
+    {% if lives_list %}
+    <div class="stats-bar">
+        <span class="record-count">Total Records: <strong>{{ lives_list|length }}</strong></span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Person Name</th>
+                    <th>Company</th>
+                    <th>Salary</th>
+                    <th>Street Address</th>
+                    <th>City</th>
+                    <th>Date Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lives in lives_list %}
+                <tr>
+                    <td class="person-name"><strong>{{ lives.works.person_name }}</strong></td>
+                    <td>{{ lives.works.company_name }}</td>
+                    <td class="salary">${{ lives.works.salary|floatformat:2 }}</td>
+                    <td>{{ lives.street }}</td>
+                    <td><span class="badge badge-info">{{ lives.city }}</span></td>
+                    <td class="date">{{ lives.created_at|date:"M d, Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No location records found.</p>
+        <a href="{% url 'insert_lives' %}" class="btn btn-primary">Add First Record</a>
+    </div>
+    {% endif %}
+
+    <div class="back-link">
+        <a href="{% url 'index' %}">← Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

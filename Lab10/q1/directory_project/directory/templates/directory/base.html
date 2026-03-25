@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Web Directory{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="{% url 'index' %}">📖 Web Directory</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="{% url 'index' %}" class="nav-link">Dashboard</a></li>
+                    <li><a href="{% url 'category_list' %}" class="nav-link">Categories</a></li>
+                    <li><a href="{% url 'page_list' %}" class="nav-link">Pages</a></li>
+                    <li><a href="{% url 'category_create' %}" class="nav-link nav-add">+ Add Category</a></li>
+                    <li><a href="{% url 'page_create' %}" class="nav-link nav-add">+ Add Page</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Web Directory. All rights reserved.</p>
+    </footer>
+</body>
+</html>

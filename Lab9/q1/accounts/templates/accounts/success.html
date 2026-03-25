@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .box {
+            width: 360px;
+            border: 1px solid #999;
+            padding: 12px;
+            line-height: 1.8;
+        }
+
+        .title {
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="title">Welcome {{ username }}</div>
+        <div>Email: {% if email %}{{ email }}{% else %}Not provided{% endif %}</div>
+        <div>Contact Number: {% if contact_number %}{{ contact_number }}{% else %}Not provided{% endif %}</div>
+        <a href="{% url 'register' %}">Back</a>
+    </div>
+</body>
+</html>

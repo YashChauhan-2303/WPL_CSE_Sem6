@@ -1,0 +1,48 @@
+{% extends 'employees/base.html' %}
+
+{% block title %}Dashboard - Employee Management{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>Employee Management System</h1>
+    <p class="subtitle">Manage employee work records and location information</p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">💼</div>
+            <div class="stat-value">{{ works_count }}</div>
+            <div class="stat-label">Work Records</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🏠</div>
+            <div class="stat-value">{{ lives_count }}</div>
+            <div class="stat-label">Location Records</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🏢</div>
+            <div class="stat-value">{{ companies }}</div>
+            <div class="stat-label">Companies</div>
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <div class="action-card">
+            <h3>➕ Add Work Record</h3>
+            <p>Insert employee work information (name, company, salary)</p>
+            <a href="{% url 'insert_works' %}" class="btn btn-primary">Go to Form →</a>
+        </div>
+
+        <div class="action-card">
+            <h3>🏠 Add Location</h3>
+            <p>Insert employee location information (street, city)</p>
+            <a href="{% url 'insert_lives' %}" class="btn btn-primary">Go to Form →</a>
+        </div>
+
+        <div class="action-card">
+            <h3>🔍 Search by Company</h3>
+            <p>Find employees by company and view their cities</p>
+            <a href="{% url 'search_company' %}" class="btn btn-primary">Go to Search →</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

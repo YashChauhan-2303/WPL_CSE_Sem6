@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Employee Management{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="{% url 'index' %}">👥 Employee Management</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="{% url 'index' %}" class="nav-link">Dashboard</a></li>
+                    <li><a href="{% url 'insert_works' %}" class="nav-link">Add Work Record</a></li>
+                    <li><a href="{% url 'insert_lives' %}" class="nav-link">Add Location</a></li>
+                    <li><a href="{% url 'search_company' %}" class="nav-link nav-highlight">Search by Company</a></li>
+                    <li><a href="{% url 'view_all_works' %}" class="nav-link">View All Works</a></li>
+                    <li><a href="{% url 'view_all_lives' %}" class="nav-link">View All Lives</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Employee Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% extends 'employees/base.html' %}
+
+{% block title %}Search by Company{% endblock %}
+
+{% block content %}
+<div class="search-page">
+    <div class="search-header">
+        <h1>Search Employees by Company</h1>
+        <p>Find employees working for a company and view their city locations</p>
+    </div>
+
+    <div class="search-container">
+        <form method="post" class="search-form">
+            {% csrf_token %}
+            
+            <div class="search-group">
+                <label for="{{ form.company_name.id_for_label }}">Company Name:</label>
+                {{ form.company_name }}
+                {% if form.company_name.errors %}
+                <div class="form-error">{{ form.company_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="search-actions">
+                <button type="submit" class="btn btn-primary">🔍 Search</button>
+            </div>
+        </form>
+    </div>
+
+    {% if results %}
+    <div class="results-section">
+        <h2>Search Results: {{ search_query }}</h2>
+        <p class="result-count">Found <strong>{{ results|length }}</strong> employee(s)</p>
+
+        <div class="table-responsive">
+            <table class="data-table results-table">
+                <thead>
+                    <tr>
+                        <th>Person Name</th>
+                        <th>Company Name</th>
+                        <th>Salary</th>
+                        <th>City</th>
+                        <th>Street Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td class="person-name">
+                            <strong>{{ result.person_name }}</strong>
+                        </td>
+                        <td>{{ result.company_name }}</td>
+                        <td class="salary">${{ result.salary|floatformat:2 }}</td>
+                        <td class="city">
+                            {% if result.city != 'Not available' %}
+                            <span class="badge badge-info">{{ result.city }}</span>
+                            {% else %}
+                            <span class="text-muted">{{ result.city }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="street">{{ result.street }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% elif search_query %}
+    <div class="empty-state">
+        <p>No employees found for "{{ search_query }}"</p>
+    </div>
+    {% else %}
+    <div class="info-box">
+        <h3>How to Search:</h3>
+        <ol>
+            <li>Enter a company name in the search field</li>
+            <li>Click the "Search" button</li>
+            <li>View all employees from that company</li>
+            <li>See employee salary and city location information</li>
+        </ol>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

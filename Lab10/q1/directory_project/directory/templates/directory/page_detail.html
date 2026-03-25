@@ -1,0 +1,53 @@
+{% extends 'directory/base.html' %}
+
+{% block title %}{{ page.title }} - Web Directory{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <a href="{% url 'category_detail' page.category.pk %}" class="breadcrumb">{{ page.category.name }}</a>
+        <span class="breadcrumb-sep">/</span>
+        <h1>{{ page.title }}</h1>
+    </div>
+    <div class="header-actions">
+        <a href="{% url 'page_update' page.pk %}" class="btn btn-secondary">Edit Page</a>
+    </div>
+</div>
+
+<div class="page-detail-content">
+    <div class="page-link-section">
+        <p class="label">Website URL</p>
+        <a href="{{ page.url }}" target="_blank" class="page-link-item">
+            {{ page.url }}
+            <span class="external-icon">↗</span>
+        </a>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="info-label">Category</span>
+            <span class="info-value">
+                <a href="{% url 'category_detail' page.category.pk %}">{{ page.category.name }}</a>
+            </span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Views</span>
+            <span class="info-value">{{ page.views }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Created</span>
+            <span class="info-value">{{ page.created_at|date:"M d, Y H:i" }}</span>
+        </div>
+    </div>
+
+    <div class="page-actions-section">
+        <a href="{{ page.url }}" target="_blank" class="btn btn-primary">Open Website →</a>
+        <a href="{% url 'page_update' page.pk %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url 'page_delete' page.pk %}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+
+<div class="back-link">
+    <a href="{% url 'page_list' %}">← Back to Pages</a>
+</div>
+{% endblock %}

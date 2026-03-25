@@ -1,0 +1,75 @@
+{% extends 'employees/base.html' %}
+
+{% block title %}Insert Location Record{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <div class="form-header">
+        <h1>Add Location Record</h1>
+        <p>Insert employee location information into LIVES table</p>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.works.id_for_label }}">Select Employee:</label>
+                {{ form.works }}
+                {% if form.works.errors %}
+                <div class="form-error">{{ form.works.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.street.id_for_label }}">Street Address:</label>
+                {{ form.street }}
+                {% if form.street.errors %}
+                <div class="form-error">{{ form.street.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.city.id_for_label }}">City:</label>
+                {{ form.city }}
+                {% if form.city.errors %}
+                <div class="form-error">{{ form.city.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Record</button>
+                <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    {% if recent_lives %}
+    <div class="recent-section">
+        <h2>Recent Location Records</h2>
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Person Name</th>
+                        <th>Company</th>
+                        <th>Street Address</th>
+                        <th>City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lives in recent_lives %}
+                    <tr>
+                        <td class="person-name">{{ lives.works.person_name }}</td>
+                        <td>{{ lives.works.company_name }}</td>
+                        <td>{{ lives.street }}</td>
+                        <td class="city">{{ lives.city }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

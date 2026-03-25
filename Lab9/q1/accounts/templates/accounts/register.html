@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .box {
+            width: 360px;
+            border: 1px solid #999;
+            padding: 12px;
+        }
+
+        .row {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 120px;
+            vertical-align: top;
+        }
+
+        input {
+            width: 210px;
+            padding: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .errorlist {
+            color: #b00020;
+            margin: 4px 0;
+            padding-left: 18px;
+            font-size: 13px;
+        }
+
+        button {
+            padding: 4px 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <form method="post" action="{% url 'success' %}">
+            {% csrf_token %}
+
+            <div class="row">
+                <label for="id_username">UserName</label>
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div class="row">
+                <label for="id_password">Password</label>
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <div class="row">
+                <label for="id_email">Email id</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="row">
+                <label for="id_contact_number">Contact Number</label>
+                {{ form.contact_number }}
+                {{ form.contact_number.errors }}
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

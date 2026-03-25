@@ -1,0 +1,23 @@
+{% extends 'directory/base.html' %}
+
+{% block title %}Delete Category - Web Directory{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Delete Category</h1>
+</div>
+
+<div class="confirm-container">
+    <div class="confirm-box">
+        <h2>Are you sure?</h2>
+        <p>You are about to delete the category <strong>"{{ object.name }}"</strong>.</p>
+        <p class="warning">This action cannot be undone. All pages in this category will also be deleted.</p>
+        
+        <form method="post" class="confirm-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'category_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

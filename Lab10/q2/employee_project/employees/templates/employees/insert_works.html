@@ -1,0 +1,73 @@
+{% extends 'employees/base.html' %}
+
+{% block title %}Insert Work Record{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <div class="form-header">
+        <h1>Add Work Record</h1>
+        <p>Insert employee information into WORKS table</p>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.person_name.id_for_label }}">Person Name:</label>
+                {{ form.person_name }}
+                {% if form.person_name.errors %}
+                <div class="form-error">{{ form.person_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.company_name.id_for_label }}">Company Name:</label>
+                {{ form.company_name }}
+                {% if form.company_name.errors %}
+                <div class="form-error">{{ form.company_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.salary.id_for_label }}">Salary:</label>
+                {{ form.salary }}
+                {% if form.salary.errors %}
+                <div class="form-error">{{ form.salary.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Record</button>
+                <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    {% if recent_works %}
+    <div class="recent-section">
+        <h2>Recent Work Records</h2>
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Person Name</th>
+                        <th>Company Name</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for work in recent_works %}
+                    <tr>
+                        <td>{{ work.person_name }}</td>
+                        <td>{{ work.company_name }}</td>
+                        <td>${{ work.salary|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
