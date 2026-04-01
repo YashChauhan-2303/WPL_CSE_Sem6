@@ -28,7 +28,7 @@ class CategoryForm(forms.ModelForm):
 
 
 class PageForm(forms.ModelForm):
-    """Form for creating and updating pages"""
+    """Form for creating and updating pages"""  
     
     class Meta:
         model = Page

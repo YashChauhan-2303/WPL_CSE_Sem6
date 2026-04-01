@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Publishers - Book Management{% endblock %}
+
+{% block content %}
+<h1>Publishers</h1>
+
+<a href="{% url 'publisher_create' %}" class="btn btn-create">Create New Publisher</a>
+
+{% if publishers %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Website</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for publisher in publishers %}
+        <tr>
+            <td>{{ publisher.name }}</td>
+            <td>{{ publisher.city }}</td>
+            <td>{{ publisher.country }}</td>
+            <td><a href="{{ publisher.website }}" target="_blank">Visit</a></td>
+            <td>
+                <a href="{% url 'publisher_detail' publisher.pk %}" class="btn btn-small">View</a>
+                <a href="{% url 'publisher_edit' publisher.pk %}" class="btn btn-small">Edit</a>
+                <a href="{% url 'publisher_delete' publisher.pk %}" class="btn btn-small btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No publishers found. <a href="{% url 'publisher_create' %}">Create one now</a></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Books - Book Management{% endblock %}
+
+{% block content %}
+<h1>Books</h1>
+
+<a href="{% url 'book_create' %}" class="btn btn-create">Create New Book</a>
+
+{% if books %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Publisher</th>
+            <th>Publication Date</th>
+            <th>Authors</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td><a href="{% url 'publisher_detail' book.publisher.pk %}">{{ book.publisher.name }}</a></td>
+            <td>{{ book.publication_date }}</td>
+            <td>
+                {% for author in book.authors.all %}
+                <span class="author-tag"><a href="{% url 'author_detail' author.pk %}">{{ author.first_name }} {{ author.last_name }}</a></span>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'book_detail' book.pk %}" class="btn btn-small">View</a>
+                <a href="{% url 'book_edit' book.pk %}" class="btn btn-small">Edit</a>
+                <a href="{% url 'book_delete' book.pk %}" class="btn btn-small btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No books found. <a href="{% url 'book_create' %}">Create one now</a></p>
+{% endif %}
+{% endblock %}

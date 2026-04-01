@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Entry</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input, button { margin: 4px 0; }
+    </style>
+</head>
+<body>
+    <h1>Student Information Form</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>Student Id:</label><br>
+            {{ form.student_id }}
+            {{ form.student_id.errors }}
+        </p>
+        <p>
+            <label>Student Name:</label><br>
+            {{ form.student_name }}
+            {{ form.student_name.errors }}
+        </p>
+        <p>
+            <label>Course Name:</label><br>
+            {{ form.course_name }}
+            {{ form.course_name.errors }}
+        </p>
+        <p>
+            <label>Date of Birth:</label><br>
+            {{ form.date_of_birth }}
+            {{ form.date_of_birth.errors }}
+        </p>
+        <button type="submit">Save</button>
+    </form>
+
+    <hr>
+
+    <h2>All Students</h2>
+    {% if students %}
+    <ul>
+        {% for student in students %}
+        <li>
+            {{ student.student_id }} | {{ student.student_name }} | {{ student.course_name }} | {{ student.date_of_birth }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No student records yet.</p>
+    {% endif %}
+</body>
+</html>

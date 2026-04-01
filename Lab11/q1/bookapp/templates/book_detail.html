@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }} - Book Management{% endblock %}
+
+{% block content %}
+<h1>{{ book.title }}</h1>
+
+<div class="detail-box">
+    <p><strong>Title:</strong> {{ book.title }}</p>
+    <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+    <p><strong>Publisher:</strong> <a href="{% url 'publisher_detail' book.publisher.pk %}">{{ book.publisher.name }}</a></p>
+    
+    <p><strong>Authors:</strong></p>
+    <ul>
+        {% for author in book.authors.all %}
+        <li><a href="{% url 'author_detail' author.pk %}">{{ author.first_name }} {{ author.last_name }}</a> ({{ author.email }})</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="actions">
+    <a href="{% url 'book_edit' book.pk %}" class="btn">Edit</a>
+    <a href="{% url 'book_delete' book.pk %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'book_list' %}" class="btn">Back to Books</a>
+</div>
+{% endblock %}

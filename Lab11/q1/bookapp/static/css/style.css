@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.nav-container {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-container h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.nav-container h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    margin-top: 40px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h3 {
+    margin: 20px 0 10px 0;
+}
+
+.btn {
+    padding: 8px 12px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: #f0f0f0;
+}
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.form {
+    margin-bottom: 20px;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="url"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.checkbox-group {
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+
+.form-actions {
+    margin-top: 15px;
+}
+
+.form-actions .btn {
+    margin-right: 10px;
+}
+
+.field-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.error {
+    color: red;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid red;
+}
+
+.detail-box {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.detail-box p {
+    margin-bottom: 10px;
+}
+
+.detail-box a {
+    color: blue;
+    text-decoration: none;
+}
+
+.detail-box a:hover {
+    text-decoration: underline;
+}
+
+.author-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    font-size: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.home-page h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    padding: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+    min-width: 200px;
+}
+
+.stat-box h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.stat-box .count {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.stat-box a {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.confirm-box {
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.confirm-box p {
+    margin-bottom: 10px;
+}
+
+ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+ul a {
+    color: blue;
+    text-decoration: none;
+}
+
+ul a:hover {
+    text-decoration: underline;
+}

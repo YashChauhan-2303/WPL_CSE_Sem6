@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ publisher.name }} - Book Management{% endblock %}
+
+{% block content %}
+<h1>{{ publisher.name }}</h1>
+
+<div class="detail-box">
+    <p><strong>Name:</strong> {{ publisher.name }}</p>
+    <p><strong>Street:</strong> {{ publisher.street_address }}</p>
+    <p><strong>City:</strong> {{ publisher.city }}</p>
+    <p><strong>State/Province:</strong> {{ publisher.state_province }}</p>
+    <p><strong>Country:</strong> {{ publisher.country }}</p>
+    <p><strong>Website:</strong> <a href="{{ publisher.website }}" target="_blank">{{ publisher.website }}</a></p>
+</div>
+
+<h3>Published Books</h3>
+{% if books %}
+<ul>
+    {% for book in books %}
+    <li><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No books published yet.</p>
+{% endif %}
+
+<div class="actions">
+    <a href="{% url 'publisher_edit' publisher.pk %}" class="btn">Edit</a>
+    <a href="{% url 'publisher_delete' publisher.pk %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'publisher_list' %}" class="btn">Back to Publishers</a>
+</div>
+{% endblock %}

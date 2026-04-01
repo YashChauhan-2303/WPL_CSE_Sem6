@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Book Management{% endblock %}
+
+{% block content %}
+<div class="home-page">
+    <h1>Welcome to Book Management System</h1>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <h3>Authors</h3>
+            <p class="count">{{ authors.count }}</p>
+            <a href="{% url 'author_list' %}" class="btn">View Authors</a>
+            <a href="{% url 'author_create' %}" class="btn btn-create">Create Author</a>
+        </div>
+        
+        <div class="stat-box">
+            <h3>Publishers</h3>
+            <p class="count">{{ publishers.count }}</p>
+            <a href="{% url 'publisher_list' %}" class="btn">View Publishers</a>
+            <a href="{% url 'publisher_create' %}" class="btn btn-create">Create Publisher</a>
+        </div>
+        
+        <div class="stat-box">
+            <h3>Books</h3>
+            <p class="count">{{ books.count }}</p>
+            <a href="{% url 'book_list' %}" class="btn">View Books</a>
+            <a href="{% url 'book_create' %}" class="btn btn-create">Create Book</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
